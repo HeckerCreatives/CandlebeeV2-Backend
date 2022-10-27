@@ -62,7 +62,7 @@ module.exports = async () => {
 
     var io = require('socket.io')(strapi.server, {
         cors: {
-          origin: "http://localhost:3000",
+          origin: "https://candlebee-v2.herokuapp.com",
           methods: ["GET", "POST"],
           allowedHeaders: ["my-custom-header"],
           credentials: true
