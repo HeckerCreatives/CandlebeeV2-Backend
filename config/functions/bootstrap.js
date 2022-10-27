@@ -13,9 +13,10 @@ const axios = require('axios');
  */
 
 module.exports = async () => {
-    console.log("----------")
     const ws = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_3m');
     const countBetHistory = await strapi.api["current-round"].services["current-round"].count();
+
+    console.log(strapi.config.server.CUSTOMENV)
 
     if(countBetHistory <= 0) {
       const binanceData = await axios("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=3m" )
@@ -39,8 +40,6 @@ module.exports = async () => {
         if (data) {
           try {
            const bin = JSON.parse(data); 
-
-           console.log(bin)
 
            if(countBetHistory > 0) {
             if (bin.k.x) {
@@ -66,7 +65,7 @@ module.exports = async () => {
 
     var io = require('socket.io')(strapi.server, {
         cors: {
-          origin: "http://localhost:3000",
+          origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
           methods: ["GET", "POST"],
           allowedHeaders: ["my-custom-header"],
           credentials: true

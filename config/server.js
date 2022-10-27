@@ -8,5 +8,8 @@ module.exports = ({ env }) => ({
   },
   cron: {
     enabled: true,
+  },
+  CUSTOMENV: {
+    FRONT_END_URL: env('FRONT_END_URL')
   }
 });
