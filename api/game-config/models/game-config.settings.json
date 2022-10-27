@@ -1,0 +1,24 @@
+{
+  "kind": "singleType",
+  "collectionName": "game_configs",
+  "info": {
+    "name": "Game Config"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "red": {
+      "type": "decimal"
+    },
+    "green": {
+      "type": "decimal"
+    },
+    "round": {
+      "type": "integer"
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "kind": "collectionType",
+  "collectionName": "current_rounds",
+  "info": {
+    "name": "Current Round",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "amount": {
+      "type": "decimal"
+    },
+    "bet_color": {
+      "type": "enumeration",
+      "enum": [
+        "red",
+        "green"
+      ]
+    },
+    "user_details": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "Id"
+    }
+  }
+}

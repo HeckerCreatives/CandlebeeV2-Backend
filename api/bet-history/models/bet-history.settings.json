@@ -1,0 +1,35 @@
+{
+  "kind": "collectionType",
+  "collectionName": "bet_histories",
+  "info": {
+    "name": "Bet History",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "winning_color": {
+      "type": "enumeration",
+      "enum": [
+        "red",
+        "green"
+      ]
+    },
+    "open": {
+      "type": "float"
+    },
+    "close": {
+      "type": "float"
+    },
+    "high": {
+      "type": "float"
+    },
+    "low": {
+      "type": "float"
+    }
+  }
+}

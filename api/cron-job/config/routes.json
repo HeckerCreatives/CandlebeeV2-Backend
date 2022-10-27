@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/cron-job",
+      "handler": "cron-job.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/cron-job",
+      "handler": "cron-job.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/cron-job",
+      "handler": "cron-job.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

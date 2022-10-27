@@ -1,0 +1,52 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/bet-histories",
+      "handler": "bet-history.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bet-histories/count",
+      "handler": "bet-history.count",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "GET",
+      "path": "/bet-histories/:id",
+      "handler": "bet-history.findOne",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "POST",
+      "path": "/bet-histories",
+      "handler": "bet-history.create",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/bet-histories/:id",
+      "handler": "bet-history.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/bet-histories/:id",
+      "handler": "bet-history.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
