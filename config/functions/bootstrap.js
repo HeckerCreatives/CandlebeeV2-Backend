@@ -13,6 +13,7 @@ const axios = require('axios');
  */
 
 module.exports = async () => {
+    console.log("----------")
     const ws = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_3m');
     const countBetHistory = await strapi.api["current-round"].services["current-round"].count();
 
@@ -38,6 +39,9 @@ module.exports = async () => {
         if (data) {
           try {
            const bin = JSON.parse(data); 
+
+           console.log(bin)
+
            if(countBetHistory > 0) {
             if (bin.k.x) {
                const betHistoryLatest = await strapi.query('bet-history').model.find({}).sort({_id: -1}).limit(1);
