@@ -82,6 +82,8 @@ module.exports = async () => {
               credentials: true
             }
             console.log(cors)
+            console.log(strapi.config.server.CUSTOMENV.FRONT_END_URL)
+            console.log("======================================")
 
           response(gameConfig)
         })
