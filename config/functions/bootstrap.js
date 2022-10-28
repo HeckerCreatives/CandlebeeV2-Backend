@@ -75,6 +75,13 @@ module.exports = async () => {
     io.on('connection', function(socket) {
           socket.on('betSocket', async ({bettingOption}, response) => {
          const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
+             const cors = {
+              origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
+              methods: ["GET", "POST"],
+              allowedHeaders: ["my-custom-header"],
+              credentials: true
+            }
+            console.log(cors)
 
           response(gameConfig)
         })
