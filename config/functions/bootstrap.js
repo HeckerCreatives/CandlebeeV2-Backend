@@ -13,6 +13,7 @@ const axios = require('axios');
  */
 
 module.exports = async () => {
+    const strapiServer = strapi.config.server.CUSTOMENV.FRONT_END_URL;
     const ws = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_3m');
     const countBetHistory = await strapi.api["current-round"].services["current-round"].count();
 
@@ -64,8 +65,8 @@ module.exports = async () => {
 
     var io = require('socket.io')(strapi.server, {
         cors: {
-          // origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
-          origin: 'https://candlebee-v2.herokuapp.com',
+          origin: strapiServer,
+          // origin: 'https://candlebee-v2.herokuapp.com',
           methods: ["GET", "POST"],
           allowedHeaders: ["my-custom-header"],
           credentials: true
@@ -76,12 +77,13 @@ module.exports = async () => {
           socket.on('betSocket', async ({bettingOption}, response) => {
          const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
              const cors = {
-              origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
+              origin: ,
               methods: ["GET", "POST"],
               allowedHeaders: ["my-custom-header"],
               credentials: true
             }
             console.log(cors)
+            console.log(strapiServer)
             console.log(strapi.config.server.CUSTOMENV.FRONT_END_URL)
             console.log("======================================")
 
