@@ -40,7 +40,6 @@ module.exports = async () => {
         if (data) {
           try {
            const bin = JSON.parse(data); 
-
            if(countBetHistory > 0) {
             if (bin.k.x) {
                const betHistoryLatest = await strapi.query('bet-history').model.find({}).sort({_id: -1}).limit(1);
