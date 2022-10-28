@@ -54,6 +54,8 @@ module.exports = async () => {
                 });
               await strapi.api["current-round"].services["current-round"].payoutPlayers(winningColor);
               await strapi.query('current-round').model.deleteMany({});
+              console.log(strapi.query('current-round').model)
+              console.log('=============================')
             } 
            }
           } catch (err) {
