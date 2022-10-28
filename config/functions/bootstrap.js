@@ -42,6 +42,8 @@ module.exports = async () => {
           try {
           console.log('tryyy')
            const bin = JSON.parse(data); 
+           console.log(bin)
+           console.log('binnnnnn')
            if(countBetHistory > 0) {
               console.log('countBetHistory greater than 0')
             if (bin.k.x) {
