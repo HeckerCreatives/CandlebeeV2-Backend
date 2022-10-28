@@ -7,6 +7,7 @@
 
 module.exports = {
   calculateOverAllTotals: async () => {
+    console.log('calculateOverAllTotals')
     const currentRounds = await strapi.query('current-round').model.find();
 
     let greenTotal = 0;
@@ -43,6 +44,7 @@ module.exports = {
   },
 
   payoutPlayers: async (winningBet) => {
+    console.log('payoutPlayers')
     try {
       const currentRounds = await strapi.query('current-round').model.find({
         bet_color: winningBet
