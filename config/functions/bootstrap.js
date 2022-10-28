@@ -46,6 +46,7 @@ module.exports = async () => {
               console.log('countBetHistory greater than 0')
             if (bin.k.x) {
               console.log('bin.k.x is true')
+              console.log('##########################################################################################################################################################################################################################################')
               console.log('adding history start')
                const betHistoryLatest = await strapi.query('bet-history').model.find({}).sort({_id: -1}).limit(1);
                const winningColor = betHistoryLatest[0].close > parseFloat(bin.k.c)? "red" : "green";
@@ -60,7 +61,7 @@ module.exports = async () => {
               await strapi.api["current-round"].services["current-round"].payoutPlayers(winningColor);
               await strapi.query('current-round').model.deleteMany({});
               console.log(strapi.query('current-round').model)
-              console.log('=============================')
+              console.log('==========================================================================================================================================================================================================================================')
               console.log('adding history end')
             } 
            }
