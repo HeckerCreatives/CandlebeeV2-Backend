@@ -64,8 +64,7 @@ module.exports = async () => {
 
     var io = require('socket.io')(strapi.server, {
         cors: {
-          // origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
-          origin: 'https://candlebee-v2.herokuapp.com',
+          origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
           methods: ["GET", "POST"],
           allowedHeaders: ["my-custom-header"],
           credentials: true
@@ -75,7 +74,6 @@ module.exports = async () => {
     io.on('connection', function(socket) {
           socket.on('betSocket', async ({bettingOption}, response) => {
          const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
-         console.log(strapi.config.server.CUSTOMENV.FRONT_END_URL)
 
           response(gameConfig)
         })
