@@ -38,18 +38,10 @@ module.exports = async () => {
 
     ws.on('message', async (data) => {
         if (data) {
-              console.log('data is true')
           try {
-          console.log('tryyy')
            const bin = JSON.parse(data); 
-           console.log(bin)
-           console.log('binnnnnn')
            if(countBetHistory > 0) {
-              console.log('countBetHistory greater than 0')
             if (bin.k.x) {
-              console.log('bin.k.x is true')
-              console.log('##########################################################################################################################################################################################################################################')
-              console.log('adding history start')
                const betHistoryLatest = await strapi.query('bet-history').model.find({}).sort({_id: -1}).limit(1);
                const winningColor = betHistoryLatest[0].close > parseFloat(bin.k.c)? "red" : "green";
 
@@ -62,9 +54,6 @@ module.exports = async () => {
                 });
               await strapi.api["current-round"].services["current-round"].payoutPlayers(winningColor);
               await strapi.query('current-round').model.deleteMany({});
-              console.log(strapi.query('current-round').model)
-              console.log('==========================================================================================================================================================================================================================================')
-              console.log('adding history end')
             } 
            }
           } catch (err) {
@@ -86,7 +75,6 @@ module.exports = async () => {
     io.on('connection', function(socket) {
           socket.on('betSocket', async ({bettingOption}, response) => {
          const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
-          console.log('web sockeeeeeeeeeeeet')
 
           response(gameConfig)
         })
