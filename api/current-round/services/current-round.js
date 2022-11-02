@@ -23,16 +23,8 @@ module.exports = {
       });
 
       const totalBets = greenTotal + redTotal;
-
-      const greenDivided = totalBets / greenTotal;
-      const redDivided = totalBets / redTotal;
-
-      const redSubtracted = greenDivided - 0.10;
-      const greenSubtracted = redDivided - 0.10;
-
-      const redPayout = redSubtracted * 100;
-      const greenPayout = greenSubtracted * 100;
-
+      const greenPayout = (((greenTotal + redTotal) / greenTotal) - 0.10) * 100
+      const redPayout = (((greenTotal + redTotal) / redTotal) - 0.10) * 100
 
     return {
       greenTotal,
@@ -63,6 +55,7 @@ module.exports = {
         });
 
       const totalBets = greenTotal + redTotal;
+
       const winningBets =  winningBet === 'green' ? greenTotal : redTotal;
       const divided = totalBets / winningBets;
       const subtracted = divided - 0.10;
@@ -70,6 +63,7 @@ module.exports = {
 
       currentRounds.forEach(async (round) => {
         const user = await strapi.query('user', 'users-permissions').find({id: round.user_details});
+
         const dividedPayout = payout / 100;
         const winningPayout =  dividedPayout * round.amount
         const userCredits = user[0].credits;

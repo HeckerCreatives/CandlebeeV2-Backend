@@ -73,6 +73,8 @@ module.exports = async () => {
     io.on('connection', function(socket) {
           socket.on('betSocket', async ({bettingOption}, response) => {
          const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
+         
+         console.log("asdasd")
 
           response(gameConfig)
         })
