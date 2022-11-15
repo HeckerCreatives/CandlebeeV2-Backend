@@ -23,9 +23,9 @@
       ]
     },
     "user_details": {
+      "via": "Id",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "Id"
+      "model": "user"
     }
   }
 }

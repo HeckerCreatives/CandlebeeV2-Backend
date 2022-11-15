@@ -65,6 +65,17 @@
     "Id": {
       "via": "user_details",
       "model": "current-round"
+    },
+    "referrerId": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "country": {
+      "type": "string"
+    },
+    "reffered_users": {
+      "plugin": "users-permissions",
+      "collection": "user"
     }
   }
 }

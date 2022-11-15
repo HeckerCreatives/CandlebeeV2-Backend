@@ -15,6 +15,7 @@ const axios = require('axios');
 module.exports = async () => {
     const ws = new WebSocket('wss://fstream.binance.com/ws/btcusdt@kline_3m');
     const countBetHistory = await strapi.api["current-round"].services["current-round"].count();
+    let counter = 0
 
     if(countBetHistory <= 0) {
       const binanceData = await axios("https://api.binance.com/api/v3/klines?symbol=BTCUSDT&interval=3m" )
@@ -40,6 +41,7 @@ module.exports = async () => {
            const bin = JSON.parse(data); 
            if(countBetHistory > 0) {
             if (bin.k.x) {
+              console.log("start")
                const betHistoryLatest = await strapi.query('bet-history').model.find({}).sort({_id: -1}).limit(1);
                const winningColor = betHistoryLatest[0].close > parseFloat(bin.k.c)? "red" : "green";
 
@@ -51,7 +53,8 @@ module.exports = async () => {
                   low: parseFloat(bin.k.l)
                 });
               await strapi.api["current-round"].services["current-round"].payoutPlayers(winningColor);
-              await strapi.query('current-round').model.deleteMany({});
+              // await strapi.query('current-round').model.deleteMany({});
+              console.log("finish")
             } 
            }
           } catch (err) {
@@ -63,7 +66,7 @@ module.exports = async () => {
     var io = require('socket.io')(strapi.server, {
         cors: {
           // origin: strapi.config.server.CUSTOMENV.FRONT_END_URL,
-          origin: 'https://candlebee-v2.herokuapp.com',
+          origin: 'http://localhost:3000',
           methods: ["GET", "POST"],
           allowedHeaders: ["my-custom-header"],
           credentials: true
@@ -71,12 +74,43 @@ module.exports = async () => {
     });
 
     io.on('connection', function(socket) {
-          socket.on('betSocket', async ({bettingOption}, response) => {
-         const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
-         
-         console.log("asdasd")
+          socket.on('betSocket', async ({dd, user_id}, response) => {
+           // const userBenInCurrentRound = await strapi.query('current-round').model.find({}).sort({user_details: -1}).limit(1);
+            // strapi.api["current-round"].services["current-round"].createOrUpdate({
+            //     _id: "634e4e8ef8d97314707a8dcf",
+            //     timer: parseInt(cronCustomData.timer) - 1  
+            // })
+            if (user_id) {
+              console.log(user_id)
+               const userCurrentBet = await strapi.query('current-round').model.find({user_details: user_id});
+                  if (dd.id.length !== 0) {
+                    if (counter === 0) { 
+                    counter = 1 
+                    const bet = await strapi.query('current-round').model.find({user_details: dd.id});
+                    if (bet.length === 0) {
+                        await strapi.query('user', 'users-permissions').update({id: dd.id}, {credits: dd.credits});
+                        await strapi.api["current-round"].services["current-round"].create({
+                          user_details: dd.id,
+                          amount: dd.bettingAmount,
+                          bet_color: dd.bet
+                        });
+                          counter = 0 
+                    } else {
+                        await strapi.query('current-round').model.find({user_details: dd.id}).updateOne({
+                          user_details: dd.id,
+                          amount: dd.bettingAmount,
+                          bet_color: dd.bet
+                        });
+                        counter = 0 
+                      }
+                    }
+                  }
+                console.log(userCurrentBet)
 
-          response(gameConfig)
+                const gameConfig = await strapi.api["current-round"].services["current-round"].calculateOverAllTotals();
+                response(gameConfig)
+            }
+       
         })
       });
   };
